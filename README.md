@@ -1,22 +1,23 @@
 ## Cams
 
+A simple Android mobile application for playing RTSP streams from IP cameras.
+
 ![Cams](https://raw.githubusercontent.com/vladpen/cams/main/fastlane/metadata/android/ru-RU/images/phoneScreenshots/5_cover.jpg)
 
-Простое мобильное приложение под Android для воспроизведения RTSP потоков с IP камер.
+Peculiarities:
 
-Особенности:
+- A simple Android mobile application for playing RTSP streams from IP cameras.
+- View RTSP streams from any IP cameras, including H.265+.
+- Simultaneous viewing of multiple streams.
+- Twenty times image magnification.
+- Support for dual-channel cameras.
+- View videos or images via SFTP.
+- Ability to configure alerts when the camera motion detector is triggered.
+- High connection speed.
+- Extreme ease of navigation and control.
+- Maximum data security and confidentiality.
+- TCP/UDP protocol switching. This option is important when viewing cameras over the Internet, where UDP may not be supported or may not work well.
 
-- Просмотр RTSP потоков c любых IP камер, включая H.265+.
-- Одновременный просмотр нескольких потоков.
-- Двадцатикратное увеличение изображения.
-- Поддержка двухканальных камер.
-- Просмотр видеозаписей или изображений по протоколу SFTP.
-- Возможность настройки оповещений о срабатывании детектора движения камеры.
-- Высокая скорость подключения.
-- Предельная простота навигации и управления.
-- Максимальная безопасность и конфиденциальность данных.
-- Переключение протокола TCP/UDP.
-  Эта опция важна при просмотре камер через интернет, где UDP может не поддерживаться или работать плохо.
 
 <img src="https://raw.githubusercontent.com/vladpen/cams/main/fastlane/metadata/android/ru-RU/images/phoneScreenshots/1_main_ru.jpg"
 alt="Main screen"
@@ -31,74 +32,47 @@ width="200">&nbsp;
 alt="Video screen"
 width="200">
 
-Приложение написано для совместного использования с сервером [python-rtsp-server](https://github.com/vladpen/python-rtsp-server),
-но прекрасно работает автономно благодаря возможности подключения к любым IP камерам, а также видеорегистраторам, поддерживающим SFTP.
+The application is written for use with the python-rtsp-server server , but works great standalone thanks to the ability to connect to any IP cameras, as well as video recorders that support SFTP.
 
-Воспроизводит большинство типов видеопотоков (не только RTSP).
-На снимке экрана выше показано изображение с реальной видеокамеры и три тестовых ролика в режиме "Группа".
+Plays most types of video streams (not just RTSP). The screenshot above shows an image from a real video camera and three test clips in Group mode.
 
-*ВАЖНО. Приложение ориентировано на безопасность и приватность данных, поэтому не собирает и не обрабатывает никакую информацию о пользователе.
-Данные не отправляются ни на какие сервера, включая техническую инфраструктуру Google и "облачные" хранилища производителей камер.*
+IMPORTANT. The application is focused on data security and privacy, so it does not collect or process any information about the user. The data is not sent to any servers, including Google's technical infrastructure or camera manufacturers' cloud storage.
 
-## Установка
+## Installation
 
-APK файл можно собрать самостоятельно, [скачать с Github](https://github.com/vladpen/cams/raw/main/app/release/app-armeabi-v7a-release.apk),
-установить с помощью [F-Droid](https://f-droid.org/ru/packages/com.vladpen.cams/)
-или [RuStore](https://www.rustore.ru/catalog/app/com.vladpen.cams).
-Поддерживается архитектура armeabi-v7a (используется в большинстве современных мобильных телефонов), arm64-v8a, x86-64 и x86.
+The APK file can be compiled independently, downloaded from Github , installed using F-Droid or RuStore . The architecture supported is armeabi-v7a (used in most modern mobile phones), arm64-v8a, x86-64 and x86.
 
-## Настройка
+## Settings
 
-Для подключения к видеокамере нужно ввести в поле "Адрес" ее URL, указанный производителем. Обычно он выглядит так:
+To connect to the video camera, you need to enter its URL specified by the manufacturer in the "Address" field. Usually it looks like this:
 ```
-[rtsp://][<пользователь>:<пароль>@]<IP>[:<порт>][/<путь>]
+[rtsp://][<user>:<password>@]<IP>[:<port>][/<path>]
 ```
-Параметры в квадратных скобках необязательны (зависит от настроек камеры).
+Parameters in square brackets are optional (depending on camera settings).
 
-Для двухканальных камер дополнительно можно указать адрес второго канала.
-Нпример, для камер Hikvision и их производных путь будет иметь такой вид:
+For dual-channel cameras, you can additionally specify the address of the second channel. For example, for Hikvision cameras and their derivatives the path will look like this:
 ```
-ISAPI/Streaming/Channels/<номер канала>
+ISAPI/Streaming/Channels/<channel number>
 ```
-Тогда первый канал (высокого разрешения) будет иметь номер 101, а второй (низкого разрешения) — 102.
+Then the first channel (high resolution) will be numbered 101, and the second (low resolution) will be numbered 102.
 
-Каналы низкого разрешения можно использовать для ускорения загрузки изображения,
-для экономии трафика и для снижения нагрузки на процессор устройства.
-Это особенно удобно для просмотра группы камер при низкой скорости соединения. 
-При воспроизведении каналы можно переключать кнопкой К1/К2 в нижнем правом углу экрана.
-На экранах групп камер по умолчанию используется K2.
+Low-resolution channels can be used to speed up image loading, save bandwidth, and reduce the load on the device's processor. This is especially useful for viewing a group of cameras on a low connection speed. During playback, channels can be switched using the K1/K2 button in the lower right corner of the screen. Camera group screens use K2 by default.
 
-Также для снижения нагрузки воспроизведение камер, выходящих за границы экрана при увеличении изображения, приостанавливается.
+Also, to reduce the load, the playback of cameras that go beyond the boundaries of the screen when the image is enlarged is paused.
 
-Адрес SFTP сервера или видеорегистратора выглядит так:
+The SFTP server or DVR address looks like this:
 ```
-[sftp://]<пользователь>:<пароль>@<IP>[:<порт>][/<путь>]
+[sftp://]<user>:<password>@<IP>[:<port>][/<path>]
 ```
-ВНИМАНИЕ! Настоятельно не рекомендуется использовать данные доступа администратора.
-Для SFTP сервера лучше создать chroot, например, как описано [тут](https://wiki.archlinux.org/title/SFTP_chroot).
+ATTENTION! It is strongly recommended not to use administrator access credentials. For an SFTP server, it is better to create a chroot, for example, as described [here](https://wiki.archlinux.org/title/SFTP_chroot).
 
-**Совет:** в названии камеры можно использовать эмодзи в качестве иконки.
-Например, на снимках экрана выше использованы иконки из стандартного набора мобильного телефона.
+**Tip**: You can use an emoji as an icon in the camera name. For example, the screenshots above use icons from the standard set of mobile phones.
 
-## Оповещение о движении
+## Motion Alert
 
-Опционально приложение может уведомлять о срабатывании детектора движения камер.
-Оповещение срабатывает в момент появления нового изображения с камеры в указанной папке SFTP сервера.
-Для работы этой функции требуется настроить камеры и сервер хранения полученных изображений.
-Подробно эти настройки описаны в параллельном проекте [Cams-PWA](https://github.com/vladpen/cams-pwa).
+Optionally, the application can notify you when the camera motion detector is triggered. The notification is triggered when a new image from the camera appears in the specified SFTP server folder. For this function to work, you need to configure the cameras and the server for storing the received images. These settings are described in detail in the parallel project [Cams-PWA](https://github.com/vladpen/cams-pwa).
 
-Подробное обсуждение приложения: [habr.com/ru/post/654915](https://habr.com/ru/post/654915/)
-и сервера: [habr.com/ru/post/597363](https://habr.com/ru/post/597363/).
-
-[<img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
-alt="Get it on Github"
-height="80">](https://github.com/vladpen/cams/tree/main/app/release)
-[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
-alt="Get it on F-Droid"
-height="80">](https://f-droid.org/packages/com.vladpen.cams/)
-
-&nbsp; [<img src="https://user-images.githubusercontent.com/3853013/194689050-e6da2f21-9aa3-4662-9b7d-7293b140f22f.svg"
-alt="Доступно в RuStore"
-height="57">](https://apps.rustore.ru/app/com.vladpen.cams)
+Detailed discussion of the application: [habr.com/ru/post/654915](https://habr.com/ru/post/654915/)
+and server: [habr.com/ru/post/597363](https://habr.com/ru/post/597363/).
 
 *Copyright (c) 2022-2024 vladpen under MIT license. Use it with absolutely no warranty.*
